@@ -1,0 +1,256 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mossofreela</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root{--bg:#050d14;--card:#0a1a26;--line:#17384a;--tx:#e6f3fa;--mu:#7da3b8;--ac:#22d3ee;--ok:#34d399;--wa:#fbbf24;--er:#f87171;--pu:#a78bfa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eef5f9;--card:#fff;--line:#c9dde8;--tx:#0b2230;--mu:#52758a;--ac:#0891b2}}
+:root[data-theme="light"]{--bg:#eef5f9;--card:#fff;--line:#c9dde8;--tx:#0b2230;--mu:#52758a;--ac:#0891b2}
+:root[data-theme="dark"]{--bg:#050d14;--card:#0a1a26;--line:#17384a;--tx:#e6f3fa;--mu:#7da3b8;--ac:#22d3ee}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:84px}
+.w{max-width:980px;margin:0 auto;padding-block:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+h1{font-size:20px;margin:0}h2{font-size:17px;margin:0}small,.mu{color:var(--mu)}.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{flex:1}
+button,select,input,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+button{cursor:pointer}button.p{background:var(--ac);color:#031017;border:0;font-weight:700}button.d{color:var(--er)}button.s{padding:5px 10px;font-size:13px}
+input,select,textarea{width:100%}label{display:block;font-size:12px;color:var(--mu);margin:8px 0 3px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow{text-align:center;font-size:11px;color:var(--mu)}
+.day{min-height:80px;border:1px solid var(--line);border-radius:10px;padding:4px;cursor:pointer;overflow:hidden}.day.past{opacity:.55}.day.today{outline:2px solid var(--ac)}
+.day b{font-size:12px}.ev{display:block;font-size:10px;border-radius:6px;padding:2px 4px;margin-top:3px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.job{border:1px solid var(--line);border-left:5px solid var(--c);border-radius:12px;padding:12px;margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tag{font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--line)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.kpi div{border:1px solid var(--line);border-bottom:3px solid var(--c);border-radius:12px;padding:12px}.kpi b{font-size:19px;display:block;margin-top:4px}
+.cos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.co{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center}.dot{width:10px;height:38px;border-radius:6px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line)}
+nav button{flex:1;max-width:170px;border:0}nav button.on{background:var(--ac);color:#031017;font-weight:700}
+dialog{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:16px;width:min(430px,92vw)}dialog::backdrop{background:#000a}.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.day{min-height:58px}.ev{font-size:9px}}
+.sec{border-top:1px solid var(--line);padding-top:14px;margin-top:16px}.sec h3{margin:0 0 6px;font-size:15px}label.ck{display:flex;gap:8px;align-items:flex-start;color:var(--tx);font-size:14px;margin:10px 0 4px}label.ck input{width:auto;margin-top:3px}.int{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}.int>div:first-child{flex:1;min-width:200px}.stp{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--mu)}.stp.on{background:var(--ac);color:#031017;border:0;font-weight:700}.stp.ok{border-color:var(--ok);color:var(--ok)}
+.sw{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}.sw button{width:32px;height:32px;border-radius:50%;padding:0;border:2px solid transparent;color:#fff;font-weight:700;text-shadow:0 0 3px #000}.sw button.on{border-color:var(--tx)}
+</style>
+<div class="w">
+<div class="card bar"><h1 id="brand">FreelaFlow</h1><small id="sync"></small><span class="sp"></span><button class="p" onclick="openJob()">+ Trabalho</button><button onclick="openCo()">+ Empresa</button><button class="p" id="gb" onclick="gsync()">🔄 Sincronizar Google</button><button onclick="exportICS()">📅 .ics</button><button onclick="backup()">⬇ Backup</button></div>
+<div id="gst" class="card" style="display:none"></div><div id="v"></div></div><nav id="nav"></nav>
+<dialog id="dj"><h2 id="djt"></h2><label>Título</label><input id="jt"><label>Empresa</label><select id="jc"></select>
+<div class="g2"><div><label>Início</label><input type="date" id="js"></div><div><label>Fim</label><input type="date" id="je"></div></div>
+<div class="g2"><div><label>Diária (R$)</label><input type="number" id="jd" step="0.01"></div><div><label>Adicionais (R$)</label><input type="number" id="ja" step="0.01"></div></div>
+<div class="g2"><div><label>Função</label><input id="jf"></div><div><label>Status</label><select id="jst"><option value="agendado">Agendado</option><option value="realizado">Realizado</option><option value="pago">Pago</option></select></div></div>
+<label>Local / observações</label><input id="jl">
+<div class="bar" style="margin-top:12px"><button class="d" id="jdel" onclick="delJob()">Excluir</button><span class="sp"></span><button onclick="dj.close()">Cancelar</button><button class="p" onclick="saveJob()">Salvar</button></div></dialog>
+<dialog id="dc"><h2>Empresa</h2><label>Nome</label><input id="cn"><div class="g2"><div><label>Prazo (dias)</label><input type="number" id="cp"></div></div><label>Cor (a mesma do Google Agenda)</label><input type="hidden" id="cl"><div class="sw" id="clp"></div>
+<div class="bar" style="margin-top:12px"><button class="d" id="cdel" onclick="delCo()">Excluir</button><span class="sp"></span><button onclick="dc.close()">Cancelar</button><button class="p" onclick="saveCo()">Salvar</button></div></dialog>
+<dialog id="dx"><h2>Confirmar exclusão</h2><p id="dxt" class="mu"></p><div class="bar" style="margin-top:12px"><span class="sp"></span><button onclick="dx.close()">Cancelar</button><button class="d" onclick="xOk()">Excluir</button></div></dialog>
+<dialog id="dm"><h2 id="dmt"></h2><label>Valor (R$)</label><input type="number" id="dmv" step="0.01"><div class="bar" style="margin-top:12px"><span class="sp"></span><button onclick="dm.close()">Cancelar</button><button class="p" onclick="dmOk()">Confirmar</button></div></dialog>
+<script src="config.js"></script>
+<script src="gshim.js"></script>
+<script>
+const $=id=>document.getElementById(id),R=v=>'R$ '+(+v||0).toLocaleString('pt-BR',{minimumFractionDigits:2}),uid=()=>Math.random().toString(36).slice(2,9);
+const MES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const addD=(k,n)=>{const d=new Date(k+'T12:00');d.setDate(d.getDate()+n);return iso(d)};
+const days=j=>Math.round((new Date(j.e+'T12:00')-new Date(j.s+'T12:00'))/864e5)+1,tot=j=>days(j)*j.d+(+j.a||0);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),fmt=k=>k.split('-').reverse().join('/');
+function seed(){return{jobs:[],cos:[],del:[],plats:[],cfg:{nome:'FreelaFlow',diaria:0,prazo:15,cal:'',calNome:'',filtro:'',ignorar:'Anivers,Agendamento',dois:false,done:false}}}
+// ---- estado / persistência ----
+let S=null,tab='agenda',cur=new Date(),ej=null,ec=null,dbDoc=null,fil='todos',dmCb=null,xCb=null,tm;
+const co=id=>S.cos.find(c=>c.id===id),col=j=>(co(j.c)||{}).k||'#22d3ee';
+function loadLocal(){try{const t=localStorage.getItem('ff1');if(t)return JSON.parse(t)}catch(e){}return null}
+function save(){persist();render()}
+function persist(){let local=true;try{localStorage.setItem('ff1',JSON.stringify(S))}catch(e){local=false}
+ if(!local&&!dbDoc)$('sync').textContent='⚠ Não foi possível salvar: faça um backup agora';
+ if(dbDoc){clearTimeout(tm);tm=setTimeout(()=>dbDoc.set({json:JSON.stringify(S)}).then(()=>$('sync').textContent='☁ Sincronizado').catch(e=>{console.error('Falha ao salvar na nuvem',e);$('sync').textContent=local?'⚠ Falha ao salvar na nuvem; dados só neste aparelho':'⚠ Não foi possível salvar: faça um backup agora'}),400)}}
+async function init(){S=loadLocal()||seed();$('sync').textContent='Salvo neste aparelho';render();
+ try{const us=await claude.use('user'),db=await claude.use('db');if(db&&us){const id=await us.id();dbDoc=db.collection('data/users/'+id).doc('ff1');const s=await dbDoc.get(),d=s&&s.exists&&s.data&&s.data();
+  if(d&&d.json)S=JSON.parse(d.json);else dbDoc.set({json:JSON.stringify(S)});$('sync').textContent='☁ Sincronizado';render()}}catch(e){}}
+// ---- telas ----
+function fix(){S.jobs=S.jobs||[];S.cos=S.cos||[];S.cfg={...DEF,...(S.cfg||{})}}
+function render(){fix();$('brand').textContent=S.cfg.nome;document.title=S.cfg.nome;$('gb').hidden=!S.cfg.cal;
+ if(!S.cfg.done){$('nav').innerHTML='';$('v').innerHTML=wizard();return}
+ const T=[['agenda','📅 Agenda'],['jobs','💼 Trabalhos'],['cos','🏢 Empresas'],['fin','💰 Financeiro'],['cfg','⚙ Configurar']];
+ $('nav').innerHTML=T.map(t=>`<button class="${tab===t[0]?'on':''}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join('');$('v').innerHTML=({agenda,jobs,cos,fin,cfg:()=>cfgTab()+impView()})[tab]()}
+function nav(){return `<button onclick="mv(-1)">‹</button><b>${MES[cur.getMonth()]} de ${cur.getFullYear()}</b><button onclick="mv(1)">›</button><button onclick="cur=new Date();render()">Hoje</button>`}
+function agenda(){const y=cur.getFullYear(),m=cur.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),td=iso(new Date());let h='<div></div>'.repeat(f);
+ for(let d=1;d<=n;d++){const k=iso(new Date(y,m,d)),ev=S.jobs.filter(j=>j.s<=k&&j.e>=k);
+  h+=`<div class="day ${k<td?'past':''} ${k===td?'today':''}" onclick="openJob(null,'${k}')"><b>${d}</b>${ev.map(j=>`<span class="ev" style="background:${col(j)}" onclick="event.stopPropagation();openJob('${j.id}')">${esc(j.t)}</span>`).join('')}${!ev.length&&k>=td?'<small style="display:block;color:var(--ok);font-size:10px;margin-top:4px">Livre</small>':''}</div>`}
+ return `<div class="card"><div class="bar"><div><small>AGENDA</small><h2>Disponibilidade mensal</h2></div><span class="sp"></span>${nav()}</div><div class="cal" style="margin-top:12px">${['DOM','SEG','TER','QUA','QUI','SEX','SÁB'].map(x=>`<div class="dow">${x}</div>`).join('')}${h}</div></div>`}
+function jobs(){const t=iso(new Date()),L=S.jobs.filter(j=>fil==='todos'?j.e>=t:j.st===fil).sort((a,b)=>a.s<b.s?-1:1);
+ return `<div class="card"><div class="bar"><div><small>TRABALHOS</small><h2>${fil==='todos'?'Atuais e próximos':fil}</h2></div><span class="sp"></span><span class="tag">${L.length} itens</span><select style="width:auto" onchange="fil=this.value;render()">${['todos','agendado','realizado','pago'].map(x=>`<option ${fil===x?'selected':''}>${x}</option>`).join('')}</select></div>
+ ${L.map(j=>`<div class="job" style="--c:${col(j)}"><div style="flex:1;min-width:200px"><small>${fmt(j.s)} → ${fmt(j.e)}</small><br><b>${esc(j.t)}</b><br><small>${esc((co(j.c)||{}).n||'Sem empresa')} · ${days(j)} dias · ${R(j.d)}/dia${j.l?' · '+esc(j.l):''}</small></div>
+ <div style="text-align:right"><b style="color:var(--ok)">${R(tot(j))}</b><br><small>recebido ${R(j.p)}${j.x?' · desp. '+R(j.x):''}</small><br><span class="tag">${j.st}</span></div>
+ <div class="bar" style="width:100%"><button class="s" onclick="openJob('${j.id}')">✏ Editar</button><button class="s" onclick="dup('${j.id}')">⧉ Duplicar</button><button class="s" onclick="mon('${j.id}','p')">Pagamento</button><button class="s" onclick="mon('${j.id}','x')">Despesa</button></div></div>`).join('')||'<p class="mu">Nada por aqui.</p>'}</div>`}
+function cos(){return `<div class="card"><div class="bar"><div><small>CRM</small><h2>Empresas cadastradas</h2></div><span class="sp"></span><button class="p" onclick="openCo()">+ Empresa</button></div><div class="cos" style="margin-top:12px">${S.cos.map(c=>`<div class="co"><div class="dot" style="background:${c.k}"></div><div style="flex:1"><b>${esc(c.n)}</b><br><small>Prazo: ${c.p||0} dias · ${S.jobs.filter(j=>j.c===c.id).length} trabalhos</small></div><button class="s" onclick="openCo('${c.id}')">✏</button></div>`).join('')}</div></div>`}
+function fin(){const mk=iso(new Date(cur.getFullYear(),cur.getMonth(),1)).slice(0,7),J=S.jobs.filter(j=>j.s.slice(0,7)===mk),sm=(L,f)=>L.reduce((a,j)=>a+f(j),0);
+ const K=L=>{const f=sm(L,tot),r=sm(L,j=>+j.p),d=sm(L,j=>+j.x);return [['Faturamento',f,'#22d3ee'],['Recebido',r,'#34d399'],['A receber',f-r,'#fbbf24'],['Despesas',d,'#f87171'],['Lucro previsto',f-d,'#a78bfa']].map(k=>`<div style="--c:${k[2]}"><small>${k[0].toUpperCase()}</small><b>${R(k[1])}</b></div>`).join('')};
+ return `<div class="card"><div class="bar"><div><small>FINANCEIRO</small><h2>Visão financeira</h2></div><span class="sp"></span>${nav()}</div><p class="mu" style="margin:12px 0 6px">${MES[cur.getMonth()]}</p><div class="kpi">${K(J)}</div><p class="mu" style="margin:14px 0 6px">Geral (todos os trabalhos)</p><div class="kpi">${K(S.jobs)}</div></div>`}
+// ---- ações ----
+function mv(n){cur=new Date(cur.getFullYear(),cur.getMonth()+n,1);render()}
+function openJob(id,day){ej=id;const j=S.jobs.find(x=>x.id===id)||{s:day||iso(new Date()),e:'',d:0,a:0,st:'agendado',f:'',l:''};
+ $('jc').innerHTML='<option value="">— sem empresa —</option>'+S.cos.map(c=>`<option value="${c.id}">${esc(c.n)}</option>`).join('');
+ $('djt').textContent=id?'Editar trabalho':'Novo trabalho';$('jt').value=j.t||'';$('jc').value=j.c||'';$('js').value=j.s;$('je').value=j.e||j.s;$('jd').value=j.d||'';$('ja').value=j.a||'';$('jf').value=j.f||'';$('jst').value=j.st;$('jl').value=j.l||'';$('jdel').style.display=id?'':'none';$('dj').showModal()}
+function saveJob(){const t=$('jt').value.trim();if(!t||!$('js').value)return;const o=S.jobs.find(x=>x.id===ej)||{p:0,x:0},j={...o,id:ej||uid(),t,c:$('jc').value,s:$('js').value,e:$('je').value||$('js').value,d:+$('jd').value||0,a:+$('ja').value||0,f:$('jf').value,st:$('jst').value,l:$('jl').value};
+ if(j.e<j.s)j.e=j.s;if(j.st==='pago')j.p=tot(j);S.jobs=S.jobs.filter(x=>x.id!==j.id).concat(j);$('dj').close();save()}
+function ask(msg,cb){xCb=cb;$('dxt').textContent=msg;$('dx').showModal()}
+function xOk(){$('dx').close();if(xCb)xCb();xCb=null}
+function delJob(){const o=S.jobs.find(x=>x.id===ej);if(!o)return;ask('Excluir o trabalho "'+o.t+'"? Se ele estiver no Google Agenda, será removido de lá na próxima sincronização.',()=>{if(o.g)(S.del=S.del||[]).push(o.g);S.jobs=S.jobs.filter(x=>x.id!==o.id);$('dj').close();save()})}
+function dup(id){const j=S.jobs.find(x=>x.id===id),n=days(j);S.jobs.push({...j,id:uid(),s:addD(j.e,1),e:addD(j.e,n),st:'agendado',p:0,x:0,g:'',gs:'',h:'',gc:'',pj:''});save()}
+function mon(id,k){dmCb=v=>{const j=S.jobs.find(x=>x.id===id);j[k]=(+j[k]||0)+v;if(k==='p'&&j.p>=tot(j)&&tot(j)>0)j.st='pago';save()};$('dmt').textContent=k==='p'?'Registrar pagamento':'Registrar despesa';$('dmv').value='';$('dm').showModal()}
+function dmOk(){const v=+$('dmv').value;$('dm').close();if(v&&dmCb)dmCb(v)}
+function openCo(id){ec=id;const c=S.cos.find(x=>x.id===id)||{n:'',p:15,k:freeK()};$('cn').value=c.n;$('cp').value=c.p;$('cl').value=c.k;pal();$('cdel').style.display=id?'':'none';$('dc').showModal()}
+function saveCo(){const n=$('cn').value.trim();if(!n)return;const c={id:ec||uid(),n,p:+$('cp').value||0,k:$('cl').value};S.cos=S.cos.filter(x=>x.id!==c.id).concat(c);$('dc').close();save()}
+function delCo(){const c=S.cos.find(x=>x.id===ec);if(!c)return;const n=S.jobs.filter(j=>j.c===c.id).length;ask('Excluir a empresa "'+c.n+'"?'+(n?' Os '+n+' trabalhos dela ficam sem empresa.':''),()=>{S.cos=S.cos.filter(x=>x.id!==c.id);S.jobs.forEach(j=>{if(j.c===c.id)j.c=''});$('dc').close();save()})}
+async function out(name,data,type){try{const d=await claude.use('downloads');if(d){await d.save({filename:name,data});return}}catch(e){}const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click()}
+// ---- Agenda Apple (Mac e iPhone): arquivo .ics, importação e link de assinatura ----
+const icsEsc=s=>String(s==null?'':s).replace(/[\u0000-\u0008\u000b-\u001f]/g,'').replace(/\\/g,'\\\\').replace(/;/g,'\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'),TE=new TextEncoder();
+const icsFold=l=>{const o=[];let c='';for(const ch of l){if(TE.encode(c+ch).length>74){o.push(c);c=' '+ch}else c+=ch}o.push(c);return o.join('\r\n')};
+function icsText(){const p=k=>k.replace(/-/g,''),st=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,''),L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//FreelaFlow//PT','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:'+icsEsc(S.cfg.nome)];
+ for(const j of S.jobs){const c=co(j.c)||{};L.push('BEGIN:VEVENT','UID:'+String(j.id).replace(/[^\w-]/g,'')+'@freelaflow','DTSTAMP:'+st,'DTSTART;VALUE=DATE:'+p(j.s),'DTEND;VALUE=DATE:'+p(addD(j.e,1)),'SUMMARY:'+icsEsc(j.t));
+  if(j.l)L.push('LOCATION:'+icsEsc(j.l));L.push('DESCRIPTION:'+icsEsc([c.n&&'Empresa: '+c.n,j.f&&'Função: '+j.f,'Status: '+j.st].filter(Boolean).join('\n')));if(c.n)L.push('CATEGORIES:'+icsEsc(c.n));L.push('END:VEVENT')}
+ L.push('END:VCALENDAR');return L.map(icsFold).join('\r\n')+'\r\n'}
+function exportICS(){out((String(S.cfg.nome||'freelaflow').replace(/[^\w-]+/g,'_')||'freelaflow')+'.ics',icsText(),'text/calendar')}
+function icsParse(t){const L=String(t).replace(/\r\n?/g,'\n').replace(/\n[ \t]/g,'').split('\n'),ev=[],un=s=>String(s||'').replace(/\\[nN]/g,'\n').replace(/\\([,;\\])/g,'$1');let c=null;
+ for(const l of L){if(l==='BEGIN:VEVENT'){c={};continue}if(l==='END:VEVENT'){if(c)ev.push(c);c=null;continue}if(!c)continue;
+  const i=l.indexOf(':');if(i<0)continue;const k=l.slice(0,i).split(';')[0].toUpperCase(),v=l.slice(i+1);
+  if(k==='DTSTART'||k==='DTEND'){const m=/(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/.exec(v);if(m)c[k]={d:m[1]+'-'+m[2]+'-'+m[3],t:m[4]?m[4]+m[5]:''}}
+  else if(k==='SUMMARY'||k==='LOCATION'||k==='DESCRIPTION'||k==='UID'||k==='STATUS')c[k]=un(v);else if(k==='RRULE')c.rr=1}
+ return ev}
+function icsLoad(inp){const f=inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onerror=()=>gshow(false,'<b>Não foi possível ler o arquivo.</b>');
+ r.onload=()=>{const ev=icsParse(String(r.result).replace(/^\uFEFF/,''));if(!ev.length){gshow(false,'<b>Nenhum evento encontrado.</b> Use um arquivo .ics exportado da Agenda.');return}
+  const ig=S.cfg.ignorar.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean),fl=S.cfg.filtro.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean),hoje=iso(new Date());let n=0,up=0,dup=0,skip=0,rep=0;
+  for(const e of ev){const t=(e.SUMMARY||'').trim(),a=e.DTSTART&&e.DTSTART.d;const tl=t.toLowerCase();
+   if(!t||!a||e.STATUS==='CANCELLED'||ig.some(x=>tl.startsWith(x))||(fl.length&&!fl.some(x=>tl.includes(x)))){skip++;continue}
+   let en=a;if(e.DTEND){en=e.DTEND.d;if(!e.DTSTART.t||(e.DTEND.t==='0000'&&en>a))en=addD(en,-1)}if(en<a)en=a;if(e.rr)rep++;
+   const uidA=e.UID||'',ex=uidA&&S.jobs.find(j=>j.ap===uidA);
+   if(ex){if(ex.t!==t||ex.s!==a||ex.e!==en||(ex.l||'')!==(e.LOCATION||'')){ex.t=t;ex.s=a;ex.e=en;ex.l=e.LOCATION||'';up++}else dup++;continue}
+   if(S.jobs.some(j=>j.s===a&&j.e===en&&j.t.toLowerCase()===tl)){dup++;continue}
+   const cm=S.cos.find(c=>tl.includes(c.n.toLowerCase())),p=parseDesc(e.DESCRIPTION);
+   S.jobs.push({id:uid(),t,c:cm?cm.id:'',s:a,e:en,d:p.d||S.cfg.diaria,a:0,f:p.f,l:e.LOCATION||'',st:en<hoje?'realizado':'agendado',p:0,x:0,g:'',gs:'',h:'',gc:'',ap:uidA});n++}
+  save();gshow(true,'<b>Importação da agenda concluída:</b> '+n+' novos, '+up+' atualizados, '+dup+' já existiam, '+skip+' ignorados (filtros, sem título ou cancelados).'+(rep?' '+rep+' evento(s) repetido(s): só a primeira ocorrência foi importada.':''))};
+ r.readAsText(f)}
+let apUrl,apMsg='';
+async function apLoad(){try{const r=await ffApi('GET','/api/ics');apUrl=r.url||''}catch(e){apUrl=null}render()}
+async function apGen(){try{const r=await ffApi('POST','/api/ics',{});apUrl=r.url;apMsg=''}catch(e){apMsg='Não foi possível gerar o link agora.'}render()}
+function apOff(){ask('Desativar o link? Quem já assinou deixa de receber atualizações.',async()=>{try{await ffApi('DELETE','/api/ics');apUrl='';apMsg=''}catch(e){apMsg='Não foi possível desativar agora.'}render()})}
+async function apCopy(){try{await navigator.clipboard.writeText(apUrl);apMsg='Link copiado.'}catch(e){apMsg='Não foi possível copiar: selecione o link e copie.'}render()}
+function apOpen(){location.href=apUrl.replace(/^https?:/,'webcal:')}
+function appleBox(){const srv=!!window.FF_SERVER;if(srv&&apUrl===undefined){apUrl=null;apLoad()}
+ return `<div class="sec"><h3>Agenda Apple (Mac e iPhone)</h3><p class="mu">Usa a Agenda da Apple? Leve seus trabalhos para ela e traga os eventos dela para cá. A importação por arquivo .ics também serve para agendas exportadas do Google ou do Outlook.</p>
+ <div class="bar"><button class="p" onclick="exportICS()">⬇ Baixar trabalhos (.ics)</button><button onclick="$('icsf').click()">⬆ Importar agenda (.ics)</button><input type="file" id="icsf" accept=".ics,text/calendar" style="display:none" onchange="icsLoad(this)"></div>
+ <p class="mu" style="font-size:12px">Baixar: no iPhone abra o arquivo e toque em Adicionar Tudo; no Mac dê dois cliques. Use uma agenda nova só para o ${esc(S.cfg.nome)}. Para atualizar, apague essa agenda e importe de novo (importar por cima pode duplicar eventos).<br>Importar: no Mac, selecione a agenda e use Arquivo &gt; Exportar &gt; Exportar… e envie o arquivo aqui. Eventos repetidos entram só uma vez.</p>
+ ${srv?(apUrl?`<label for="apu">Link de assinatura (só seu, não compartilhe)</label><input id="apu" readonly value="${esc(apUrl)}" onclick="this.select()"><div class="bar" style="margin-top:8px"><button class="p" onclick="apOpen()">Assinar no Mac/iPhone</button><button onclick="apCopy()">Copiar link</button><button onclick="apGen()">Gerar novo link</button><button class="d" onclick="apOff()">Desativar</button></div>
+ <p class="mu" style="font-size:12px">iPhone: toque em Assinar, ou vá em Ajustes &gt; Calendário &gt; Contas &gt; Adicionar Conta &gt; Outra &gt; Adicionar Calendário Assinado e cole o link. Mac: Agenda &gt; Arquivo &gt; Nova Assinatura de Calendário. A Apple atualiza calendários assinados de tempos em tempos, não na hora, e a assinatura é só de leitura: o que você mudar na Apple não volta para cá. A cor na Agenda Apple é da agenda inteira, não por empresa.</p>`:(apUrl===''?`<div class="bar"><button class="p" onclick="apGen()">🔗 Gerar link de assinatura (atualiza sozinho)</button></div>`:'')):'<p class="mu" style="font-size:12px">O link de assinatura automática fica disponível na versão online do app.</p>'}
+ ${apMsg?'<p class="mu" style="margin-top:8px">'+esc(apMsg)+'</p>':''}</div>`}
+function backup(){out('freelahub-backup.json',JSON.stringify(S,null,1),'application/json')}
+
+// ---- sincronismo Google Calendar (conector do viewer) ----
+const GS='Google Calendar',WIN=[iso(new Date(Date.now()-365*864e5)),iso(new Date(Date.now()+365*864e5))];
+const MSG={needs_reauth:'Reconecte o Google Calendar no claude.ai (Configurações > Conectores) e tente de novo.',server_not_connected:'O Google Calendar não está conectado nesta conta do Claude.',not_in_manifest:'Esta página ainda não tem permissão para usar o Google Calendar. Reabra o app e aceite o pedido.',not_granted:'A permissão foi negada. Reabra o app e aceite o pedido de acesso ao Google Calendar.',capability_disabled:'O Google Agenda não está disponível para o seu tipo de acesso a esta página (quem só visualiza ou comenta não pode usar conectores). Alternativa que funciona: no Google Agenda vá em Configurações > Importar e exportar > Exportar, abra o arquivo .zip e envie o .ics aqui em "Importar agenda (.ics)".',rate_limited:'Muitas chamadas seguidas. Espere um minuto e tente de novo.'};
+const gerr=e=>{const c=e&&e.code;return (MSG[c]||('Erro'+(c?' ('+c+')':'')))+(c&&!MSG[c]&&e.message?': '+e.message:'')};
+async function gcall(tool,input){const m=await claude.use('mcp');if(!m)throw{code:'capability_disabled'};
+ const r=await m.callTool(GS,tool,input);if(r&&r.payload&&typeof r.payload==='object')return r.payload;
+ const t=r&&r.content&&r.content.find(c=>c.type==='text');try{return t?JSON.parse(t.text):{}}catch(e){return{}}}
+const dd=o=>o&&(o.date||o.dateTime||'').slice(0,10);
+function parseDesc(d){const g=k=>{const m=new RegExp(k+':\\s*R?\\$?\\s*([^\\n]*)').exec(d||'');return m?m[1].trim():''};return{d:parseFloat(g('Cachê'))||0,f:g('Função')}}
+const sig=j=>JSON.stringify([j.t,j.s,j.e,j.l||'',j.f||'',+j.d||0,(co(j.c)||{}).n||'',j.st]),gsig=n=>JSON.stringify([n.t,n.s,n.e,n.l||'']);
+const norm=e=>{const s=dd(e.start);let en=dd(e.end);if(e.start&&e.start.date)en=addD(en,-1);if(!en||en<s)en=s;return{id:e.id,t:e.summary||'(sem título)',s,e:en,l:e.location||'',desc:e.description||''}};
+const GCOL=[[11,'d50000','Tomate'],[4,'e67c73','Flamingo'],[6,'f4511e','Tangerina'],[5,'f6bf26','Banana'],[2,'33b679','Sálvia'],[10,'0b8043','Manjericão'],[7,'039be5','Pavão'],[9,'3f51b5','Mirtilo'],[1,'7986cb','Lavanda'],[3,'8e24aa','Uva'],[8,'616161','Grafite']];
+const freeK=()=>{const u=new Set(S.cos.map(c=>String(c.k||'').toLowerCase())),g=GCOL.find(x=>!u.has('#'+x[1]));return '#'+(g||GCOL[0])[1]};
+function pal(){const v=String($('cl').value||'').toLowerCase(),hit=GCOL.some(g=>v==='#'+g[1]);
+ $('clp').innerHTML=GCOL.map(([i,h,n])=>`<button type="button" class="${v==='#'+h?'on':''}" style="background:#${h}" title="${n}" aria-label="${n}" onclick="pickK('#${h}')">${v==='#'+h?'✓':''}</button>`).join('')+(hit||!v?'':'<small class="mu" style="width:100%">Cor atual personalizada: no Google fica a mais parecida. Escolha uma acima para ficar idêntica.</small>')}
+function pickK(h){$('cl').value=h;pal()}
+function gcol(k){const m=/^#?([0-9a-f]{6})$/i.exec(k||'');if(!m)return '';const v=[0,2,4].map(i=>parseInt(m[1].substr(i,2),16));let b='',bd=1e9;for(const[id,h]of GCOL){const d=[0,2,4].reduce((s,i,n)=>s+(v[n]-parseInt(h.substr(i,2),16))**2,0);if(d<bd){bd=d;b=String(id)}}return b}
+const gcv=j=>gcol((co(j.c)||{}).k),needsG=j=>sig(j)!==j.h||(j.gc||'')!==gcv(j);
+const body=j=>{const o={summary:j.t,colorId:gcv(j)||undefined,allDay:true,startTime:j.s+'T00:00:00',endTime:addD(j.e,1)+'T00:00:00',description:S.cfg.nome+'\nEmpresa: '+((co(j.c)||{}).n||'')+'\nFunção: '+(j.f||'')+'\nCachê: R$ '+(+j.d||0)+'\nStatus: '+j.st.toUpperCase()};if(j.l)o.location=j.l;return o};
+async function gfetch(){let ev=[],tok='';do{const q={calendarId:S.cfg.cal,startTime:WIN[0]+'T00:00:00',endTime:WIN[1]+'T23:59:59',orderBy:'startTime',pageSize:250};if(tok)q.pageToken=tok;const r=await gcall('list_events',q);ev=ev.concat(r.events||[]);tok=r.nextPageToken||''}while(tok);
+ const ig=S.cfg.ignorar.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean),fl=S.cfg.filtro.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+ return ev.filter(e=>{const t=(e.summary||'').toLowerCase();return e.status!=='cancelled'&&!ig.some(x=>t.startsWith(x))&&(!fl.length||fl.some(x=>t.includes(x)))}).map(norm)}
+function gshow(ok,html){const p=$('gst');p.style.display='block';p.style.borderColor=ok?'var(--ok)':'var(--er)';p.innerHTML=html+' <button class="s" style="float:right" onclick="this.parentNode.style.display=\'none\'">fechar</button>'}
+async function gsync(){if(!S.cfg.cal){gshow(false,'<b>Escolha primeiro a agenda do Google em Configurar.</b>');return}const b=$('gb');b.disabled=true;const c={novos:0,atual:0,rem:0,link:0,env:0,upd:0,del:0},fail=[];
+ try{b.textContent='⏳ Permissão...';
+  try{const pm=await claude.use('permissions');if(pm){const st=await pm.request(['mcp:'+GS]),v=st&&(st['mcp:'+GS]||st);if(v==='denied')throw{code:'not_granted'}}}catch(e){if(e&&(e.code==='not_granted'||e.code==='google_not_configured'))throw e}
+  b.textContent='⏳ Lendo Google...';let G=await gfetch();const gm=new Map(G.map(n=>[n.id,n]));
+  for(const n of G){let j=S.jobs.find(x=>x.g===n.id);
+   if(!j){j=S.jobs.find(x=>!x.g&&x.s===n.s&&x.e===n.e);
+    if(j){j.g=n.id;j.gs=gsig(n);j.h=sig(j);c.link++}
+    else{const p=parseDesc(n.desc);const cm=S.cos.find(c=>n.t.toLowerCase().includes(c.n.toLowerCase()));j={id:uid(),g:n.id,t:n.t,c:cm?cm.id:'',s:n.s,e:n.e,d:p.d||S.cfg.diaria,a:0,f:p.f,l:n.l,st:n.e<iso(new Date())?'realizado':'agendado',p:0,x:0};j.gs=gsig(n);j.h=sig(j);S.jobs.push(j);c.novos++}}
+   else if(gsig(n)!==j.gs&&sig(j)===j.h){j.t=n.t;j.s=n.s;j.e=n.e;j.l=n.l;j.gs=gsig(n);j.h=sig(j);c.atual++}}
+  for(const j of S.jobs.slice()){if(j.g&&!gm.has(j.g)&&j.s>=WIN[0]&&j.e<=WIN[1]){if(sig(j)===j.h){S.jobs=S.jobs.filter(x=>x!==j);c.rem++}else{j.g='';j.gs='';j.h=''}}}
+  if(!S.cfg.dois){save();gshow(true,'<b>✔ Agenda importada</b> às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+': '+c.novos+' novos, '+c.atual+' atualizados, '+c.rem+' removidos. Nada foi enviado ao Google.');b.disabled=false;b.textContent='🔄 Sincronizar Google';return}
+  b.textContent='⏳ Enviando...';
+  const stop=e=>e&&(e.code==='needs_reauth'||e.code==='not_granted'||e.code==='server_not_connected'||e.code==='not_in_manifest'||e.code==='rate_limited');
+  for(const id of (S.del||[]).slice()){try{await gcall('delete_event',{calendarId:S.cfg.cal,eventId:id});S.del=S.del.filter(x=>x!==id);c.del++}catch(e){if(stop(e))throw e;fail.push('excluir: '+gerr(e))}}
+  for(const j of S.jobs.filter(j=>!j.g)){try{const r=await gcall('create_event',{calendarId:S.cfg.cal,...body(j)}),id=r&&(r.id||(r.event&&r.event.id));if(id){j.g=id;j.gs=gsig({t:j.t,s:j.s,e:j.e,l:j.l});j.h=sig(j);j.gc=gcv(j)}else j.g='';c.env++}catch(e){if(stop(e))throw e;fail.push(j.t+': '+gerr(e))}}
+  if(S.jobs.some(j=>!j.g)){G=await gfetch();for(const j of S.jobs.filter(j=>!j.g)){const n=G.find(n=>!S.jobs.some(x=>x.g===n.id)&&n.s===j.s&&n.e===j.e);if(n){j.g=n.id;j.gs=gsig(n);j.h=sig(j)}}}
+  for(const j of S.jobs.filter(j=>j.g&&needsG(j))){try{await gcall('update_event',{calendarId:S.cfg.cal,eventId:j.g,...body(j)});j.gs=gsig({t:j.t,s:j.s,e:j.e,l:j.l});j.h=sig(j);j.gc=gcv(j);c.upd++}catch(e){if(stop(e))throw e;fail.push(j.t+': '+gerr(e))}}
+  save();const hh=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  gshow(!fail.length,'<b>'+(fail.length?'Sincronizado com falhas':'✔ Sincronizado')+' às '+hh+'</b><br>Do Google para o app: '+c.novos+' novos, '+c.atual+' atualizados, '+c.rem+' removidos. Do app para o Google: '+c.env+' criados, '+c.upd+' atualizados, '+c.del+' excluídos. '+c.link+' vinculados.'+(fail.length?'<br><span style="color:var(--er)">'+fail.slice(0,5).map(esc).join('<br>')+'</span>':''))}
+ catch(e){save();gshow(false,'<b>Não sincronizou.</b> '+esc(gerr(e)))}
+ b.disabled=false;b.textContent='🔄 Sincronizar Google'}
+// ---- configuração, assistente inicial, importação de planilha ----
+const DEF={nome:'FreelaFlow',diaria:0,prazo:15,cal:'',calNome:'',filtro:'',ignorar:'Anivers,Agendamento',dois:false,done:false};
+const PAL=['#039be5','#33b679','#d50000','#e67c73','#f6bf26','#8e24aa','#3f51b5','#f4511e'];
+let GCALS=[],wz=1,imp=null,msgCfg='',impP='';
+function setCfg(k,v){S.cfg[k]=v;persist()}
+function setCfgQuiet(k,v){S.cfg[k]=v;try{localStorage.setItem('ff1',JSON.stringify(S))}catch(e){}if(dbDoc){clearTimeout(tm);tm=setTimeout(()=>dbDoc.set({json:JSON.stringify(S)}).catch(()=>{}),600)}}
+async function gPick(){msgCfg='Conectando ao Google Agenda...';render();
+ try{try{const pm=await claude.use('permissions');if(pm){const st=await pm.request(['mcp:'+GS]),v=st&&(st['mcp:'+GS]||st);if(v==='denied')throw{code:'not_granted'}}}catch(e){if(e&&(e.code==='not_granted'||e.code==='google_not_configured'))throw e}
+  const r=await gcall('list_calendars',{});GCALS=(r.calendars||[]).filter(c=>!/#holiday@/.test(c.id));msgCfg=GCALS.length?'':'Nenhuma agenda encontrada nesta conta.'}
+ catch(e){msgCfg=gerr(e)}render()}
+function pickCal(id){const c=GCALS.find(x=>x.id===id);if(c){S.cfg.cal=c.id;S.cfg.calNome=(c.summary||'').trim();save()}}
+function calBox(){const ok=!!S.cfg.cal;
+ return `<div class="sec"><h3>Google Agenda</h3><p class="mu">${ok?'Agenda conectada: <b>'+esc(S.cfg.calNome)+'</b>':'Escolha a agenda do Google onde ficam seus trabalhos. O app lê os eventos dela e cria os trabalhos sozinho.'}</p>
+ <div class="bar"><button class="p" onclick="gPick()">${ok?'Trocar agenda':'Conectar Google Agenda'}</button>${ok?'<button onclick="gsync()">Importar agora</button>':''}</div>
+ ${GCALS.length?'<label for="calsel">Qual agenda?</label><select id="calsel" onchange="pickCal(this.value)"><option value="">— escolha —</option>'+GCALS.map(c=>`<option value="${esc(c.id)}" ${c.id===S.cfg.cal?'selected':''}>${esc(c.summary||c.id)}</option>`).join('')+'</select>':''}
+ ${msgCfg?'<p class="mu" style="margin-top:8px">'+esc(msgCfg)+'</p>':''}
+ <label for="cf1">Só importar eventos cujo título contenha (opcional, separe por vírgula)</label><input id="cf1" value="${esc(S.cfg.filtro)}" placeholder="ex.: evento, freela, nome da empresa" onchange="setCfg('filtro',this.value)">
+ <label for="cf2">Ignorar eventos que comecem com</label><input id="cf2" value="${esc(S.cfg.ignorar)}" onchange="setCfg('ignorar',this.value)">
+ <label class="ck"><input type="checkbox" id="cf3" ${S.cfg.dois?'checked':''} onchange="setCfg('dois',this.checked)"> Também enviar para o Google os trabalhos que eu criar ou editar aqui (dois sentidos)</label>
+ <p class="mu" style="font-size:12px">Desligado, o app só lê sua agenda e nunca altera nada nela.</p></div>`}
+function addPlat(){const e=$('pn'),n=e.value.trim();if(!n)return;(S.plats=S.plats||[]).push({id:uid(),n,map:null});e.value='';save()}
+function delPlat(id){const p=(S.plats||[]).find(x=>x.id===id);if(p)ask('Remover a plataforma "'+p.n+'"? Os trabalhos já importados continuam no painel.',()=>{S.plats=S.plats.filter(x=>x.id!==id);save()})}
+function platFile(id){impP=id;$('csvf').click()}
+function intBox(){const L=S.plats||[];
+ return `<div class="sec"><h3>Plataformas das empresas de eventos</h3><p class="mu">Cadastre cada empresa ou sistema em que você recebe trabalhos. Exporte a lista de trabalhos de lá (planilha CSV ou arquivo JSON) e importe aqui. O painel guarda quais colunas são quais, e da próxima vez é só escolher o arquivo.</p>
+ ${L.map(p=>`<div class="int"><div><b>${esc(p.n)}</b><br><small>${S.jobs.filter(j=>j.pl===p.id).length} trabalhos importados · ${p.map?'colunas já configuradas':'colunas ainda não configuradas'}</small></div><div class="bar"><button class="p s" onclick="platFile('${p.id}')">Importar arquivo</button><button class="s d" onclick="delPlat('${p.id}')">Remover</button></div></div>`).join('')||'<p class="mu">Nenhuma plataforma cadastrada ainda.</p>'}
+ <div class="bar" style="margin-top:10px"><input id="pn" placeholder="Nome da empresa ou plataforma" style="flex:1;min-width:180px" onkeydown="if(event.key==='Enter')addPlat()"><button class="p" onclick="addPlat()">+ Adicionar</button></div>
+ <input type="file" id="csvf" accept=".csv,.txt,.json,text/csv,application/json" style="display:none" onchange="csvLoad(this)">
+ <p class="mu" style="font-size:12px;margin-top:8px">Quer a sincronização automática com um sistema específico? Isso depende de a empresa oferecer uma API ou conector; peça a integração ao suporte do painel.</p></div>`}
+function perfBox(){return `<div class="sec"><h3>Seu perfil</h3><div class="g2"><div><label for="p1">Nome do seu painel</label><input id="p1" value="${esc(S.cfg.nome)}" onchange="setCfg('nome',this.value||'FreelaFlow')"></div><div><label for="p2">Diária padrão (R$)</label><input id="p2" type="number" step="0.01" value="${S.cfg.diaria||''}" onchange="setCfg('diaria',+this.value||0)"></div></div>
+ <label for="p3">Prazo de pagamento padrão das empresas (dias)</label><input id="p3" type="number" value="${S.cfg.prazo}" onchange="setCfg('prazo',+this.value||0)"></div>`}
+function dadosBox(){return `<div class="sec"><h3>Seus dados</h3><div class="bar"><button onclick="backup()">⬇ Baixar backup</button><button onclick="$('rf').click()">⬆ Restaurar backup</button><input type="file" id="rf" accept=".json" style="display:none" onchange="restore(this)"><span class="sp"></span><button class="d" onclick="ask('Apagar todos os trabalhos, empresas e configurações deste painel?',()=>{S={jobs:[],cos:[],del:[],cfg:{...DEF}};wz=1;save()})">Apagar tudo</button></div></div>`}
+function cfgTab(){return `<div class="card"><h2>Configurar</h2><p class="mu">Tudo o que você precisa para ligar sua agenda e suas plataformas.</p>${perfBox()}${calBox()}${appleBox()}${intBox()}${dadosBox()}</div>`}
+function wizard(){const st=n=>`<span class="stp ${wz===n?'on':wz>n?'ok':''}">${n}</span>`;
+ const head=`<div class="card"><div class="bar" style="gap:6px">${st(1)}${st(2)}${st(3)}<span class="sp"></span><button class="s" onclick="S.cfg.done=true;save()">Pular configuração</button></div>`;
+ if(wz===1)return head+`<h2 style="margin-top:14px">Bem-vindo! Vamos configurar em 3 passos</h2><p class="mu">Primeiro, o básico. Você pode mudar tudo depois em Configurar.</p>${perfBox()}<div class="bar" style="margin-top:14px"><span class="sp"></span><button class="p" onclick="wz=2;render()">Continuar</button></div></div>`;
+ if(wz===2)return head+`<h2 style="margin-top:14px">Ligue sua agenda de trabalhos</h2><p class="mu">Seus eventos viram trabalhos automaticamente.</p>${calBox()}${appleBox()}<div class="bar" style="margin-top:14px"><button onclick="wz=1;render()">Voltar</button><span class="sp"></span><button class="p" onclick="wz=3;render()">${S.cfg.cal?'Continuar':'Pular este passo'}</button></div></div>`;
+ return head+`<h2 style="margin-top:14px">Plataformas das empresas de eventos</h2><p class="mu">Ative o que você usa. Pode deixar para depois.</p>${intBox()}<div class="bar" style="margin-top:14px"><button onclick="wz=2;render()">Voltar</button><span class="sp"></span><button class="p" onclick="S.cfg.done=true;tab='agenda';save()">Concluir</button></div></div>`}
+function restore(inp){const f=inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.jobs))throw 0;S=d;save()}catch(e){gshow(false,'<b>Arquivo de backup inválido.</b>')}};r.readAsText(f)}
+// CSV
+function csvParse(t){const dl=[';','\t',','].map(d=>[d,(t.split('\n')[0]||'').split(d).length]).sort((a,b)=>b[1]-a[1])[0][0],rows=[];let row=[],cell='',q=false;
+ for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){cell+='"';i++}else q=false}else cell+=c}else if(c==='"')q=true;else if(c===dl){row.push(cell);cell=''}else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;row.push(cell);rows.push(row);row=[];cell=''}else cell+=c}
+ if(cell||row.length){row.push(cell);rows.push(row)}return rows.filter(r=>r.some(x=>String(x).trim()))}
+function pDate(v){v=String(v||'').trim();let m=/^(\d{4})-(\d{2})-(\d{2})/.exec(v);if(m)return m[1]+'-'+m[2]+'-'+m[3];m=/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/.exec(v);if(m){const y=m[3].length===2?'20'+m[3]:m[3];return y+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0')}return''}
+function pNum(v){let s=String(v||'').replace(/[^\d,.\-]/g,'');if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');else if(s.includes(','))s=s.replace(',','.');return parseFloat(s)||0}
+const CAMPOS=[['t','Título do trabalho',/t[ií]tulo|evento|job|nome|descri/i],['s','Data de início',/in[ií]cio|data|dia|start/i],['e','Data de fim (opcional)',/fim|t[eé]rmino|end/i],['d','Diária / cachê (opcional)',/di[aá]ria|cach[eê]|valor|pre[cç]o/i],['c','Empresa (opcional)',/empresa|cliente|contratante/i],['f','Função (opcional)',/fun[cç][aã]o|cargo/i],['l','Local (opcional)',/local|lugar|cidade/i]];
+function jsonRows(t){let d=JSON.parse(t);if(!Array.isArray(d)){const k=Object.keys(d).find(k=>Array.isArray(d[k]));d=k?d[k]:[]}
+ const flat=o=>{const r={};for(const k in o){const v=o[k];if(v&&typeof v==='object'&&!Array.isArray(v)){for(const k2 in v)r[k+'.'+k2]=v[k2]}else r[k]=v}return r};
+ d=d.filter(x=>x&&typeof x==='object').map(flat);const h=[...new Set(d.flatMap(Object.keys))];return[h].concat(d.map(o=>h.map(k=>o[k]==null?'':o[k])))}
+function csvLoad(inp){const f=inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{let rows;const t=String(r.result).replace(/^\uFEFF/,'');
+ try{rows=/^\s*[\[{]/.test(t)?jsonRows(t):csvParse(t)}catch(e){gshow(false,'<b>Não consegui ler o arquivo.</b> Use CSV ou JSON.');return}
+ if(rows.length<2){gshow(false,'<b>Arquivo vazio ou sem cabeçalho.</b>');return}
+ const h=rows[0].map(x=>String(x).trim()),pl=(S.plats||[]).find(x=>x.id===impP),map={};
+ CAMPOS.forEach(c=>{const sv=pl&&pl.map&&pl.map[c[0]];map[c[0]]=(sv!=null&&sv!==''&&h.includes(sv))?h.indexOf(sv):h.findIndex(x=>c[2].test(x))});
+ imp={h,rows:rows.slice(1),map,pid:impP};tab='cfg';render();setTimeout(()=>{const e=$('impbox');if(e)e.scrollIntoView()},50)};r.readAsText(f)}
+function impView(){if(!imp)return'';return `<div class="card" id="impbox"><h2>Importar${(S.plats||[]).find(x=>x.id===imp.pid)?' de '+esc(S.plats.find(x=>x.id===imp.pid).n):''}</h2><p class="mu">${imp.rows.length} linhas encontradas. Diga qual coluna é cada informação.</p><div class="g2">${CAMPOS.map(c=>`<div><label for="m_${c[0]}">${c[1]}</label><select id="m_${c[0]}" onchange="imp.map.${c[0]}=+this.value">${'<option value="-1">— não usar —</option>'+imp.h.map((x,i)=>`<option value="${i}" ${imp.map[c[0]]===i?'selected':''}>${esc(x||'coluna '+(i+1))}</option>`).join('')}</select></div>`).join('')}</div>
+ <div class="bar" style="margin-top:12px"><button onclick="imp=null;render()">Cancelar</button><span class="sp"></span><button class="p" onclick="csvDo()">Importar</button></div></div>`}
+function csvDo(){const m=imp.map;if(m.t<0||m.s<0){gshow(false,'<b>Escolha ao menos as colunas de título e de data de início.</b>');return}
+ const g=(r,k)=>m[k]>=0?String(r[m[k]]==null?'':r[m[k]]).trim():'';let n=0,dup=0,bad=0;const pl=(S.plats||[]).find(x=>x.id===imp.pid);
+ if(pl){pl.map={};CAMPOS.forEach(c=>{pl.map[c[0]]=m[c[0]]>=0?imp.h[m[c[0]]]:''})}
+ for(const r of imp.rows){const t=g(r,'t'),s=pDate(g(r,'s'));if(!t||!s){bad++;continue}let e=pDate(g(r,'e'))||s;if(e<s)e=s;
+  if(S.jobs.some(j=>j.s===s&&j.e===e&&j.t.toLowerCase()===t.toLowerCase())){dup++;continue}
+  let cid='';const cn=g(r,'c')||(pl?pl.n:'');if(cn){let c=S.cos.find(x=>x.n.toLowerCase()===cn.toLowerCase());if(!c){c={id:uid(),n:cn,k:PAL[S.cos.length%PAL.length],p:S.cfg.prazo};S.cos.push(c)}cid=c.id}
+  const d=pNum(g(r,'d'))||S.cfg.diaria;S.jobs.push({id:uid(),t,c:cid,s,e,d,a:0,f:g(r,'f'),l:g(r,'l'),st:e<iso(new Date())?'realizado':'agendado',p:0,x:0,g:'',gs:'',h:'',pl:pl?pl.id:''});n++}
+ imp=null;tab='jobs';save();gshow(true,'<b>Importação concluída:</b> '+n+' trabalhos novos, '+dup+' já existiam, '+bad+' linhas ignoradas (sem título ou data).')}
+
+init();
+
+Object.assign(MSG,{needs_reauth:'Sua conexão com o Google expirou (dura cerca de 1 hora). Clique em Sincronizar de novo e entre com a sua conta Google.',server_not_connected:'Entre com sua conta Google para sincronizar.',not_granted:'Você não autorizou o acesso ao Google Agenda. Clique em Sincronizar e aceite o pedido na janela do Google.',popup_failed:'O navegador bloqueou a janela de login do Google. Libere pop-ups para este site e tente de novo.',gis_load_failed:'Não foi possível carregar o login do Google. Verifique a internet e se algum bloqueador está ativo.',google_not_configured:'A conexão com o Google ainda não foi configurada por quem publicou esta página (falta o ID do cliente em config.js).',capability_disabled:'Recurso indisponível neste navegador.'});
+</script>
